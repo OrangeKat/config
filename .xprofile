@@ -1,0 +1,6 @@
+# Set monitor configurations
+xrandr --output HDMI-A-0 --mode 1920x1080 --rate 144 --left-of DisplayPort-1
+xrandr --output DisplayPort-1 --mode 2560x1440 --rate 240
+
+# Mouse Setting
+xinput --set-prop "Virtual core pointer" "Coordinate Transformation Matrix" 0.6 0 0 0 0.6 0 0 0 0.6
