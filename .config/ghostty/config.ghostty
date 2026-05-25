@@ -2,7 +2,6 @@
 theme = Catppuccin Mocha
 
 # font settings
-font-style = Iosevka Term
 font-size = 16
 
 # terminal settings

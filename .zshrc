@@ -1,10 +1,14 @@
-# Paths
-export PATH="$PATH:$HOME/.local/bin"
-
-# Env Variables
+# Homebrew
+export PATH="/opt/homebrew/bin:$PATH"
 
 # OhMyPosh theme
-eval "$(oh-my-posh init zsh --config '~/.config/ohmyposh-theme.omp.json')"
+eval "$(oh-my-posh init zsh --config '~/ohmyposh-theme.omp.json')"
+
+# Paths
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/Users/thomas/go:$PATH"
+
+# Env Variables
 
 # zsh themes
 source ~/.config/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
@@ -14,11 +18,7 @@ export LS_COLORS="$(vivid generate catppuccin-mocha)"
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
+# Oh My Zsh plugins
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh

@@ -20,9 +20,10 @@ return {
   {
     "neovim/nvim-lspconfig",
     config = function()
-      local lspconfig = require("lspconfig")
-      lspconfig.lua_ls.setup({})
-      lspconfig.clangd.setup({
+      vim.lsp.config("lua_ls", {})
+      vim.lsp.enable("lua_ls")
+
+      vim.lsp.config("clangd", {
         cmd = {
           "clangd",
           "--background-index",
@@ -33,7 +34,10 @@ return {
           "--fallback-style=llvm",
         },
       })
-      lspconfig.ruff.setup({})
+      vim.lsp.enable("clangd")
+
+      vim.lsp.config("ruff", {})
+      vim.lsp.enable("ruff")
 
       local wk = require("which-key")
       wk.add({
