@@ -12,9 +12,7 @@ return {
         ensure_installed = {
           "lua_ls",
           "clangd",
-          "pyright",
           "ruff",
-          "gopls",
         },
       })
     end,
@@ -22,33 +20,33 @@ return {
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require("plugins.keymaps.lspconfig")
-      require("plugins.configs.lspconfig")
-    end,
-  },
-  {
-    "nvimtools/none-ls.nvim",
-    event = "VeryLazy",
-    config = function()
-      local null_ls = require("null-ls")
-      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-      null_ls.setup({
-        sources = {
-          null_ls.builtins.formatting.clang_format,
-          null_ls.builtins.formatting.gofmt,
-          null_ls.builtins.formatting.goimports,
-          null_ls.builtins.formatting.black,
+      local lspconfig = require("lspconfig")
+      lspconfig.lua_ls.setup({})
+      lspconfig.clangd.setup({
+        cmd = {
+          "clangd",
+          "--background-index",
+          "--clang-tidy",
+          "--header-insertion=iwyu",
+          "--completion-style=detailed",
+          "--function-arg-placeholders",
+          "--fallback-style=llvm",
         },
-        on_attach = function(client, bufnr)
-          vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
-              vim.lsp.buf.format({ async = false })
-            end,
-          })
-        end,
+      })
+      lspconfig.ruff.setup({})
+
+      local wk = require("which-key")
+      wk.add({
+        { "<leader>c", group = "Code" },
+        { "<leader>cc", vim.lsp.buf.hover, desc = "Code context", mode = "n" },
+        { "<leader>ca", vim.lsp.buf.code_action, desc = "Code action", mode = "n" },
+        { "<leader>cr", vim.lsp.buf.rename, desc = "Code rename", mode = "n" },
+        { "<leader>g", group = "Goto" },
+        { "<leader>gd", vim.lsp.buf.definition, desc = "Go to definition", mode = "n" },
+        { "<leader>gt", vim.lsp.buf.type_definition, desc = "Go to type definition", mode = "n" },
+        { "<leader>gi", vim.lsp.buf.implementation, desc = "Go to implementation", mode = "n" },
+        { "<leader>gn", vim.lsp.buf.goto_next, desc = "Go to next", mode = "n" },
+        { "<leader>gp", vim.lsp.buf.goto_prev, desc = "Go to previous", mode = "n" },
       })
     end,
   },
